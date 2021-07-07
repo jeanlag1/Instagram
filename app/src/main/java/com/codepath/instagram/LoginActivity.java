@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +18,8 @@ import com.parse.ParseUser;
 public class LoginActivity extends AppCompatActivity {
     private String TAG = "LoginActivity";
 
-    TextView mEtUsername;
-    TextView mEtPassword;
+    EditText mEtUsername;
+    EditText mEtPassword;
     Button mBtnLogin;
 
     @Override

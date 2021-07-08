@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Button mSubmit;
     EditText mDescription;
     ImageView mPicture;
+    Button mGoToFeed;
 
     public String mPhotoFileName = "photo.jpg";
     private File mPhotoFile;
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         mDescription = findViewById(R.id.etDescription);
         mPicture = findViewById(R.id.ivPostImg);
         mLogout =  findViewById(R.id.btnLogout);
+        mGoToFeed =  findViewById(R.id.btnFeed);
+
         mLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,28 +76,15 @@ public class MainActivity extends AppCompatActivity {
                 takePicture();
             }
         });
-
-        // Query the posts
-//        queryPosts();
-    }
-
-    private void queryPosts() {
-        // Specify which class to query
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        // Specify the object id
-        query.findInBackground(new FindCallback<Post>() {
+        mGoToFeed.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issues with getting posts", e );
-                    return;
-                }
-                for (Post post : posts) {
-                    Log.i(TAG, "Post: " + post.getDescription() + " , username: " + post.getUser().getUsername());
-                }
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, FeedActivity.class);
+                startActivity(i);
             }
         });
+
+        // Query the posts
     }
 
     private void takePicture() {

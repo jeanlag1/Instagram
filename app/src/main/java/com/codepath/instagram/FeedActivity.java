@@ -3,6 +3,7 @@ package com.codepath.instagram;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,8 @@ public class FeedActivity extends AppCompatActivity {
     RecyclerView rvPosts;
     PostsAdapter mAdapter;
     List<Post> mPosts;
+    private SwipeRefreshLayout mSwipeContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +34,25 @@ public class FeedActivity extends AppCompatActivity {
         mAdapter = new PostsAdapter(this,mPosts);
         rvPosts.setAdapter(mAdapter);
         rvPosts.setLayoutManager(new LinearLayoutManager(this));
-
         queryPosts();
+        mSwipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        mSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPosts.clear();
+                queryPosts();
+                mSwipeContainer.setRefreshing(false);
+            }
+        });
+        // Configure the refreshing colors
+        mSwipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
     }
+
 
     private void queryPosts() {
         // Specify which class to query

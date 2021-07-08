@@ -1,7 +1,9 @@
 package com.codepath.instagram;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -32,12 +36,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 43 ;
-    Button mLogout;
-    Button mTakePicture;
-    Button mSubmit;
-    EditText mDescription;
-    ImageView mPicture;
-    Button mGoToFeed;
+    private Button mLogout;
+    private Button mTakePicture;
+    private Button mSubmit;
+    private EditText mDescription;
+    private ImageView mPicture;
+    private Button mGoToFeed;
+    private BottomNavigationView mBottomNavView;
 
     public String mPhotoFileName = "photo.jpg";
     private File mPhotoFile;
@@ -53,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         mPicture = findViewById(R.id.ivPostImg);
         mLogout =  findViewById(R.id.btnLogout);
         mGoToFeed =  findViewById(R.id.btnFeed);
+        mBottomNavView = findViewById(R.id.bottomNavigation);
+
 
         mLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +88,30 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, FeedActivity.class);
                 startActivity(i);
+            }
+        });
+
+        mBottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment;
+                switch (item.getItemId()) {
+                    case R.id.action_home:
+//                        fragment = fragment1;
+                        Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.action_compose:
+//                        fragment = fragment2;
+                        Toast.makeText(MainActivity.this, "Compose", Toast.LENGTH_LONG).show();
+                        break;
+                    case R.id.action_profile:
+                    default:
+                        Toast.makeText(MainActivity.this, "Profile", Toast.LENGTH_LONG).show();
+//                        fragment = fragment3;
+                        break;
+                }
+//                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                return true;
             }
         });
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,61 +7,13 @@
     tools:context=".MainActivity"
     android:layout_margin="16dp">
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="180dp"
-        android:layout_height="47dp"
-        android:backgroundTint="@android:color/darker_gray"
-        android:text="Logout"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-    <EditText
-        android:id="@+id/etDescription"
+    <FrameLayout
+        android:id="@+id/flMainActivity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigation" />
 
-    <Button
-        android:id="@+id/btnPicture"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Take Picture"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDescription" />
-
-    <ImageView
-        android:id="@+id/ivPostImg"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPicture"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPostImg" />
-
-    <Button
-        android:id="@+id/btnFeed"
-        android:layout_width="180dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="4dp"
-        android:text="Go to feed"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
@@ -73,4 +25,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom_navigation" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

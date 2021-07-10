@@ -67,7 +67,6 @@ public class ComposeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
-        // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
         mTakePicture = view.findViewById(R.id.btnPicture);
         mSubmit = view.findViewById(R.id.btnSubmit);
         mDescription = view.findViewById(R.id.etDescription);

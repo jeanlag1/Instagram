@@ -13,14 +13,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 @ParseClassName("Post")
-//@Parcel
 public class Post extends ParseObject implements Serializable {
     private static final long serialVersionUID = 5177222050535318633L;
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
 
-//    public Post(){}
+
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);

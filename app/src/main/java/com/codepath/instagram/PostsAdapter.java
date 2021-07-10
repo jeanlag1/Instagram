@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -53,11 +56,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         TextView mTvUsername;
         TextView mTvDescription;
         ImageView mIvImage;
+        TextView mTvUser2;
+        ImageView mProf;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTvDescription = itemView.findViewById(R.id.tvDescription);
             mTvUsername = itemView.findViewById(R.id.tvUsername);
+            mTvUser2 = itemView.findViewById(R.id.tvuser1);
+            mProf = itemView.findViewById(R.id.ivProf);
             mIvImage = itemView.findViewById(R.id.ivImage);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,10 +87,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         public void bind(Post post) {
             mTvUsername.setText(post.getUser().getUsername());
+            mTvUser2.setText(post.getUser().getUsername());
             mTvDescription.setText(post.getDescription());
             if (post.getImage() != null ) {
                 Glide.with(mContext).load(post.getImage().getUrl()).into(mIvImage);
             }
+            Glide.with(mContext)
+                    .load(ParseUser.getCurrentUser().getParseFile("profilePicture").getUrl())
+                    .transform(new CenterCrop(),new RoundedCorners(500))
+                    .into(mProf);
         }
 
     }

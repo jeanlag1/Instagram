@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText mEtUsername;
     EditText mEtPassword;
     Button mBtnLogin;
+    TextView mSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,14 @@ public class LoginActivity extends AppCompatActivity {
         mBtnLogin = findViewById(R.id.btnLogin);
         mEtPassword = findViewById(R.id.etPassword);
         mEtUsername = findViewById(R.id.etUsername);
+        mSignUp = findViewById(R.id.btnSignUp);
+
+        mSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createUser();
+            }
+        });
 
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +54,27 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void createUser() {
+        ParseUser user = new ParseUser();
+        user.setUsername(mEtUsername.getText().toString());
+        user.setPassword(mEtPassword.getText().toString());
+
+        // Other fields can be set just like any other ParseObject,
+        // using the "put" method, like this: user.put("attribute", "its value");
+        // If this field does not exists, it will be automatically created
+
+        user.signUpInBackground(e -> {
+            if (e == null) {
+                Toast.makeText(this, "Successfully signed up!", Toast.LENGTH_LONG).show();
+                goMainActivity();
+            } else {
+                // Sign up didn't succeed. Look at the ParseException
+                // to figure out what went wrong
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void loginUser(String username, String password) {
 
         Log.i(TAG, "Attempting to login user " + username);
@@ -52,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Issue with login", e);
+                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 goMainActivity();

@@ -26,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.instagram.Post;
 import com.codepath.instagram.PostsAdapter;
 import com.codepath.instagram.R;
@@ -79,10 +81,11 @@ public class ProfileFragment extends Fragment {
         mProfileImg = view.findViewById(R.id.ivProfile);
         mUsername = view.findViewById(R.id.tvProfileUsername);
 
-        mUsername.setText(ParseUser.getCurrentUser().getUsername());
+        mUsername.setText(" " + ParseUser.getCurrentUser().getUsername());
         Log.i(TAG, "Currr : "+ ParseUser.getCurrentUser().getParseFile("profilePicture"));
         Glide.with(getContext())
                 .load(ParseUser.getCurrentUser().getParseFile("profilePicture").getUrl())
+                .transform(new CenterCrop(),new RoundedCorners(500))
                 .into(mProfileImg);
 
         mEdit.setOnClickListener(new View.OnClickListener() {

@@ -41,12 +41,10 @@ public class ComposeFragment extends Fragment {
 
     private static final String TAG = "MainActivity";
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 43 ;
-    private Button mLogout;
     private Button mTakePicture;
     private Button mSubmit;
     private EditText mDescription;
     private ImageView mPicture;
-    private Button mGoToFeed;
     public String mPhotoFileName = "photo.jpg";
     private File mPhotoFile;
 
@@ -74,19 +72,6 @@ public class ComposeFragment extends Fragment {
         mSubmit = view.findViewById(R.id.btnSubmit);
         mDescription = view.findViewById(R.id.etDescription);
         mPicture = view.findViewById(R.id.ivPostImg);
-        mLogout =  view.findViewById(R.id.btnLogout);
-        mGoToFeed =  view.findViewById(R.id.btnFeed);
-
-        mLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                Intent i = new Intent(getContext(), LoginActivity.class);
-                startActivity(i);
-//                finish();
-            }
-        });
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,13 +82,6 @@ public class ComposeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 takePicture();
-            }
-        });
-        mGoToFeed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent i = new Intent(getContext(), FeedActivity.class);
-//                startActivity(i);
             }
         });
     }
